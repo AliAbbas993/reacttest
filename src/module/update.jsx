@@ -1,8 +1,24 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , useParams} from 'react-router-dom';
+
+import { useSelector, useDispatch } from 'react-redux'
+import { edituser } from '../redux/users'
 
 const Update = () => {
+    
+    const {user} = useSelector((state) => state)
+    const dispatch = useDispatch()
+
+
+    const params = useParams();
     const navigate = useNavigate();
+
+    console.log(params , "params");
+
+    const handleUpdate = () => {
+        dispatch(edituser(params))
+        navigate('/listing' , 'replace');
+    }
 
     const data = [
         {
@@ -80,7 +96,7 @@ const Update = () => {
                             <input type="password" name="password" placeholder='Password' className='form-control'/>
                         </div>
                         <div className="form-group">
-                            <button className='btn btn-primary' onClick={() => navigate('listing' , 'replace')}>Login</button>
+                            <button className='btn btn-primary' onClick={handleUpdate}>Login</button>
                         </div>
                     </form>
                   </div>
